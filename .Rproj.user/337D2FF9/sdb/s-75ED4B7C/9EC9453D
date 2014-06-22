@@ -1,0 +1,16 @@
+{
+    "contents" : "## This project calculates the inverse of a square matrix. Each calculation is cached.\n## If the inverse has already ben calculated, the cached result is returned instead of re-calculating\n\n## makeCacheMatrix creates a table of functions:\n##    \"set\" collects the matrix you are inverting for the function and \n##        checks to make sure the input is  a square matrix\n##    \"get\" reads the matrix out\n##    \"setSolve\" stores solution\n##    \"getSolve\" reads the solutions\n## To use it, Call the makeCacheMatrix() function and assign it's\n## return value (a list of four functions) to a variable, such as 'v'\n## by using v <- makeCacheMatrix()\n##  v is now a list of the four functions\n\nmakeCacheMatrix <- function(x = matrix()) {   ## Create the table of functions\n  m <- NULL\n  set <- function(y) {                        ## Create set function\n      x <<- y\n      if(is.matrix(x)==FALSE){stop(\"Not a Matrix!\")}      ## Tests to make sure input is a Matrix\n      if(ncol(x)!=nrow(x)){stop(\"Not a SQUARE Matrix!\")}  ## Tests to make sure input is a SQUARE Matrix\n      m <<- NULL\n    }\n    get <- function() x                         ## Creates get function\n    setSolve <- function(solve) m <<- solve     ## Creates setSolve function\n    getSolve <- function() m                    ## Creates getSolve function\n  ## Create the list:\n    list(set = set, get = get,\n        setSolve = setSolve,\n        getSolve = getSolve)\n\n}\n\n\n## cacheSolve checks to see if the inverse has already been calculated\n## if it has, it returns the cached value\n## if it has not, it calls the \"solve()\" function in R to invert the matrix, and returns that matrix, caching it\n\ncacheSolve <- function(x, ...) {\n                                                ## Return a matrix that is the inverse of 'x'\n   m <- x$getSolve()                            ## call getSolve and send to m\n      if(!is.null(m)) {                         ## check to see if the cached answer exists\n      message(\"getting cached data\")            ## If so, alert the user that the value is cached\n      return(m)                                 ## return the cached solution\n    }\n    data <- x$get()                             ## Assign the output of get to data\n    m <- solve(data, ...)                       ## Call solve() to calculate the inverse\n    x$setSolve(m)                               ## call setSolve to store the result\n    m                                           ## print m\n\n}\n",
+    "created" : 1403451990467.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2829072865",
+    "id" : "9EC9453D",
+    "lastKnownWriteTime" : 1403459892,
+    "path" : "D:/coursera/assignment2/cachematrix.R",
+    "project_path" : "cachematrix.R",
+    "properties" : {
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}
